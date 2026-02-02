@@ -1,0 +1,20 @@
+/* color palette from <https://github.com/vuejs/theme> */
+
+:root {
+  --auth-color: cornflowerblue;
+  --bg-color-light: #f8f9fa;
+  --text-color-dark: #212529;
+  --btn-hover-bg: #e9ecef;
+  --bg-color-main: #ffffff;
+  --bg-color-footer: #f1f3f5;
+  --text-color-active: #1a1d20;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}

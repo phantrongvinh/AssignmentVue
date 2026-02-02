@@ -1,0 +1,87 @@
+@import "./base.css";
+
+/* Màu nền có màu light */
+.bg-color-light {
+  background-color: var(--bg-color-light);
+}
+
+/* Màu chữ chính của dự án */
+.text-color-dark {
+  color: var(--text-color-dark);
+}
+
+.text-color-dark:hover {
+  color: var(--text-color-dark);
+}
+
+/* Bỏ gạch chân của a */
+.text-hover {
+  text-decoration: none;
+}
+
+/* Hiệu ứng cho các phần tử text-hover */
+.text-hover:hover {
+  color: var(--text-color-dark);
+}
+
+/* Config hiệu ứng của các link nav */
+.roter-link-active,
+.router-link-exact-active {
+  color: var(--text-color-active) !important;
+  font-weight: 600;
+}
+
+/* Phần responsive của navbar */
+@media (min-width: 992px) {
+  .border-lg-custom {
+    border-top: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+  }
+}
+
+/* Custom các nút tương tác bài viết */
+.btn-interact-custom:hover {
+  background-color: var(--btn-hover-bg) !important;
+}
+
+/* Nút hover */
+.btn.btn-hover:hover {
+  background-color: var(--btn-hover-bg) !important;
+}
+
+/* Tạo hiệu ứng hover cho các bài blog */
+.blog-detail-hover {
+  transition: all 0.3s ease;
+}
+
+.blog-detail-hover:hover {
+  box-shadow: 0 8px 20px #ccc;
+  transform: translateY(-2px);
+}
+
+/* Tạo hiệu ứng mềm mại khi chuyển views */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Hover các nav tab ở home */
+.nav .nav-link-bg.active {
+  background-color: var(--btn-hover-bg);
+  color: var(--text-color-dark);
+}
+
+/* Màu nền của main content */
+#main {
+  background-color: var(--bg-color-main);
+}
+
+/* Màu nền của footer */
+.bg-color-footer {
+  background-color: var(--bg-color-footer);
+}
