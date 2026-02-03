@@ -80,160 +80,7 @@
               ></textarea>
             </div>
           </div>
-          <div class="row my-4">
-            <div class="col-1">
-              <img
-                src="../../Assignment/images/avatar-1.jpg"
-                class="w-50 img-fluid"
-              />
-            </div>
-            <div class="d-flex flex-column col-11">
-              <div class="d-flex flex-row align-items-center">
-                <div class="fw-semibold fs-6">Phi hành gia</div>
-                <div class="fs-6 text-muted ms-2">05/2025</div>
-              </div>
-              <p class="fs-6 d-flex align-items-center mt-2 text-secondary">
-                Cảm ơn xấp thơ và tấm lòng của Phương. Những bài về mẹ làm mình
-                lay động. Nhớ những lần tạm biệt khóc nhiều hơn cười và chẳng ai
-                dám ôm ai một cái cho đàng hoàng...
-              </p>
-              <div class="">
-                <a
-                  class="text-muted text-decoration-none cursor-pointer"
-                  style="font-size: 12px"
-                >
-                  <i class="fa-regular fa-heart"></i> LIKE
-                  <span class="badge bg-transparent text-muted fw-light"
-                    >(3)</span
-                  >
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="row my-4">
-            <div class="col-1">
-              <img
-                src="../../Assignment/images/avatar-1.jpg"
-                class="w-50 img-fluid"
-              />
-            </div>
-            <div class="d-flex flex-column col-11">
-              <div class="d-flex flex-row align-items-center">
-                <div class="fw-semibold fs-6">Phi hành gia</div>
-                <div class="fs-6 text-muted ms-2">05/2025</div>
-              </div>
-              <p class="fs-6 d-flex align-items-center mt-2 text-secondary">
-                Cảm ơn xấp thơ và tấm lòng của Phương. Những bài về mẹ làm mình
-                lay động. Nhớ những lần tạm biệt khóc nhiều hơn cười và chẳng ai
-                dám ôm ai một cái cho đàng hoàng...
-              </p>
-              <div class="">
-                <a
-                  class="text-muted text-decoration-none cursor-pointer"
-                  style="font-size: 12px"
-                >
-                  <i class="fa-regular fa-heart"></i> LIKE
-                  <span class="badge bg-transparent text-muted fw-light"
-                    >(3)</span
-                  >
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="row my-4">
-            <div class="col-1">
-              <img
-                src="../../Assignment/images/avatar-1.jpg"
-                class="w-50 img-fluid"
-              />
-            </div>
-            <div class="d-flex flex-column col-11">
-              <div class="d-flex flex-row align-items-center">
-                <div class="fw-semibold fs-6">Phi hành gia</div>
-                <div class="fs-6 text-muted ms-2">05/2025</div>
-              </div>
-              <p class="fs-6 d-flex align-items-center mt-2 text-secondary">
-                Cảm ơn xấp thơ và tấm lòng của Phương. Những bài về mẹ làm mình
-                lay động. Nhớ những lần tạm biệt khóc nhiều hơn cười và chẳng ai
-                dám ôm ai một cái cho đàng hoàng...
-              </p>
-              <div class="">
-                <a
-                  class="text-muted text-decoration-none cursor-pointer"
-                  style="font-size: 12px"
-                >
-                  <i class="fa-regular fa-heart"></i> LIKE
-                  <span class="badge bg-transparent text-muted fw-light"
-                    >(3)</span
-                  >
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="row my-4">
-            <div class="col-1">
-              <img
-                src="../../Assignment/images/avatar-1.jpg"
-                class="w-50 img-fluid"
-              />
-            </div>
-            <div class="d-flex flex-column col-11">
-              <div class="d-flex flex-row align-items-center">
-                <div class="fw-semibold fs-6">Phi hành gia</div>
-                <div class="fs-6 text-muted ms-2">05/2025</div>
-              </div>
-              <p class="fs-6 d-flex align-items-center mt-2 text-secondary">
-                Cảm ơn xấp thơ và tấm lòng của Phương. Những bài về mẹ làm mình
-                lay động. Nhớ những lần tạm biệt khóc nhiều hơn cười và chẳng ai
-                dám ôm ai một cái cho đàng hoàng...
-              </p>
-              <div class="">
-                <a
-                  class="text-muted text-decoration-none cursor-pointer"
-                  style="font-size: 12px"
-                >
-                  <i class="fa-regular fa-heart"></i> LIKE
-                  <span class="badge bg-transparent text-muted fw-light"
-                    >(3)</span
-                  >
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="row my-4">
-            <div class="col-1">
-              <img
-                src="../../Assignment/images/avatar-1.jpg"
-                class="w-50 img-fluid"
-              />
-            </div>
-            <div class="d-flex flex-column col-11">
-              <div class="d-flex flex-row align-items-center">
-                <div class="fw-semibold fs-6">Phi hành gia</div>
-                <div class="fs-6 text-muted ms-2">05/2025</div>
-              </div>
-              <p class="fs-6 d-flex align-items-center mt-2 text-secondary">
-                Cảm ơn xấp thơ và tấm lòng của Phương. Những bài về mẹ làm mình
-                lay động. Nhớ những lần tạm biệt khóc nhiều hơn cười và chẳng ai
-                dám ôm ai một cái cho đàng hoàng...
-              </p>
-              <div class="">
-                <a
-                  class="text-muted text-decoration-none cursor-pointer"
-                  style="font-size: 12px"
-                >
-                  <i class="fa-regular fa-heart"></i> LIKE
-                  <span class="badge bg-transparent text-muted fw-light"
-                    >(3)</span
-                  >
-                </a>
-              </div>
-            </div>
-          </div>
+          <CommentList :commentList="commentsList"></CommentList>
         </div>
         <!--  -->
       </div>
@@ -243,7 +90,8 @@
 </template>
 
 <script setup>
-import { blogs } from "@/db";
+import CommentList from "@/components/CommentList.vue";
+import { blogs, comments } from "@/db";
 import { getAuthor } from "@/ultils/config";
 import { formateDate } from "@/ultils/date";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -251,14 +99,16 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const blogDetailID = route.params.id;
+const blogDetailID = Number(route.params.id);
 
 const blogDetail = computed(() => {
-  const blogDetailID = route.params.id;
-  return blogs.value.find((blog) => blog.blogID == blogDetailID);
+  return blogs.value.find((blog) => blog.blogID === blogDetailID);
 });
 const author = computed(() => {
   return getAuthor(blogDetail.value.authorID);
+});
+const commentsList = computed(() => {
+  return comments.value.filter((comment) => comment.blogID === blogDetailID);
 });
 </script>
 
