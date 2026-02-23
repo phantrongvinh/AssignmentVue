@@ -31,13 +31,13 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
         <button class="btn bg-transparent btn-hover">
           <FontAwesomeIcon icon="magnifying-glass" />
         </button>
-        <a
+        <RouterLink
           class="btn bg-transparent btn-hover border-0"
-          href="/auth"
+          to="/auth"
           data-page="auth"
         >
           Sign In
-        </a>
+        </RouterLink>
       </div>
     </div>
   </header>

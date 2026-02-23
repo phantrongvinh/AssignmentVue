@@ -85,3 +85,21 @@
 .bg-color-footer {
   background-color: var(--bg-color-footer);
 }
+
+/* Màu chữ chủ đề */
+.text-auth {
+  color: var(--auth-color);
+}
+
+.text-auth:hover {
+  color: rgb(49, 118, 247) !important;
+}
+
+.btn-auth {
+  background-color: var(--auth-color) !important;
+  border: none;
+}
+
+.btn-auth:hover {
+  background-color: rgb(49, 118, 247) !important;
+}

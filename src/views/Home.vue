@@ -176,9 +176,10 @@ import AuthorSide from "@/components/AuthorSide.vue";
 import BlogItem from "@/components/BlogItem.vue";
 import BlogList from "@/components/BlogList.vue";
 import { blogs, users } from "@/db";
+import UserAPI from "@/service/UserAPI";
 import { getAuthor } from "@/ultils/config";
 import { formateDate } from "@/ultils/date";
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 const newBlog = computed(() => {
   return blogs.value
     .slice()
@@ -212,6 +213,15 @@ const blogsByLike = computed(() => {
     .sort((a, b) => b.likes.length - a.likes.length)
     .slice(0, 6);
 });
+
+const usersFormDB = ref([]);
+
+onMounted(async() =>{
+  const rs = await UserAPI.getAllUsers();
+  usersFormDB.value = rs.data;
+})
+
+console.log(usersFormDB);
 </script>
 
 <style scoped></style>
