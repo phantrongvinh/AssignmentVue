@@ -26,7 +26,8 @@
               <!-- Phần log in form -->
               <div class="col-12 col-lg-6 auth-panel">
                 <div
-                  class="tab-pane fade show active"
+                  class="tab-pane fade"
+                  :class="{ active: isLoginForm, show: isLoginForm }"
                   id="pills-logIn"
                   role="tabpanel"
                   aria-labelledby="pills-logIn-tab"
@@ -39,6 +40,7 @@
                         class="form-control"
                         id="floatingEmail"
                         placeholder="name@example.com"
+                        v-model="formLogin.email"
                       />
                       <label for="floatingEmail" class="text-auth"
                         >Email address</label
@@ -50,6 +52,7 @@
                         class="form-control"
                         id="floatingPassword"
                         placeholder="Password"
+                        v-model="formLogin.password"
                       />
                       <label for="floatingPassword">Password</label>
                     </div>
@@ -80,7 +83,11 @@
                       </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                      <button type="submit" class="btn btn-primary btn-auth">
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-auth"
+                        @click.prevent="login()"
+                      >
                         Đăng nhập
                       </button>
                     </div>
@@ -92,56 +99,96 @@
               <div class="col-12 col-lg-6 auth-panel">
                 <div
                   class="tab-pane fade"
+                  :class="{ active: !isLoginForm, show: !isLoginForm }"
                   id="pills-signUp"
                   role="tabpanel"
                   aria-labelledby="pills-signUp-tab"
                   tabindex="0"
                 >
-                  <div class="form-floating mb-3">
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="floatingEmail"
-                      placeholder="name@example.com"
-                    />
-                    <label for="floatingEmail" class="text-auth"
-                      >Email address</label
-                    >
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="floatingPassword"
-                      placeholder="Password"
-                    />
-                    <label for="floatingPassword">Password</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="floattingName"
-                      placeholder="Sói cô độc"
-                    />
-                    <label for="floattingName" class="text-auth"
-                      >Nghệ danh</label
-                    >
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="floatingDate"
-                      placeholder="Password"
-                    />
-                    <label for="floatingDate">Ngày sinh</label>
-                  </div>
-                  <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary btn-auth">
-                      Đăng ký
-                    </button>
-                  </div>
+                  <form action="">
+                    <div class="form-floating mb-3">
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="floatingEmail"
+                        placeholder="name@example.com"
+                        v-model="formSignUp.email"
+                      />
+                      <label for="floatingEmail" class="text-auth"
+                        >Email address</label
+                      >
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="floatingPassword"
+                        placeholder="Password"
+                        v-model="formSignUp.password"
+                      />
+                      <label for="floatingPassword">Password</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floattingName"
+                        placeholder="Sói cô độc"
+                        v-model="formSignUp.nickname"
+                      />
+                      <label for="floattingName" class="text-auth"
+                        >Nghệ danh</label
+                      >
+                    </div>
+                    <div class="mb-3">
+                      <div class="form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="gender"
+                          id="male"
+                          v-model="formSignUp.gender"
+                          :value="true"
+                        />
+                        <label class="form-check-label mx-2" for="male">
+                          Nam
+                        </label>
+                      </div>
+                      <div class="form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="gender"
+                          id="female"
+                          v-model="formSignUp.gender"
+                          :value="false"
+                        />
+                        <label class="form-check-label mx-2" for="female">
+                          Nữ
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="floatingDate"
+                        placeholder="Password"
+                        v-model="formSignUp.birthDay"
+                      />
+                      <label for="floatingDate">Ngày sinh</label>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-auth"
+                        @click.prevent="register()"
+                      >
+                        Đăng ký
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -155,7 +202,8 @@
             <div class="col-lg-6">
               <li class="nav-item" role="presentation">
                 <button
-                  class="nav-link active text-color-dark nav-link-auth mx-auto"
+                  class="nav-link text-color-dark nav-link-auth mx-auto"
+                  :class="{ active: isLoginForm }"
                   @click="switchToLogin"
                   id="pills-logIn-tab"
                   data-bs-toggle="pill"
@@ -173,6 +221,7 @@
               <li class="nav-item" role="presentation">
                 <button
                   class="nav-link text-color-dark nav-link-auth mx-auto"
+                  :class="{ active: !isLoginForm }"
                   @click="switchToSignUp"
                   id="pills-signUp-tab"
                   data-bs-toggle="pill"
@@ -195,18 +244,77 @@
   </div>
 </template>
 <script setup>
+import AuthAPI from "@/service/AuthAPI";
+import UserAPI from "@/service/UserAPI";
+import { useAuthStore } from "@/store/authStore";
 import { ref } from "vue";
 
+// Kiểm soát hành vi và giao diện của form đăng nhập đăng ký
 const isLoginForm = ref(true);
 
 const switchToLogin = () => {
   isLoginForm.value = true;
-  console.log(isLoginForm.value);
 };
 
 const switchToSignUp = () => {
   isLoginForm.value = false;
-  console.log(isLoginForm.value);
+};
+
+//
+
+//Xử lý logic code đăng ký
+const formSignUp = ref({
+  email: "",
+  password: "",
+  nickname: "",
+  birthDay: "",
+  gender: true,
+});
+
+const alertInfo = ref("");
+
+const register = async () => {
+  try {
+    const rs = await UserAPI.isExistsEmail(formSignUp.value.email);
+    if (rs == true || formSignUp.value.email.trim() === "") {
+      alertInfo.value =
+        "Email đã tồn tại hoặc chưa nhập, vui lòng chọn email (khác)";
+      resetSignUpForm();
+    } else {
+      await AuthAPI.register(formSignUp.value);
+      alertInfo.value = "Đăng ký thành công!";
+      switchToLogin();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const resetSignUpForm = () => {
+  Object.assign(formSignUp.value, {
+    email: "",
+    password: "",
+    nickname: "",
+    birthDay: "",
+  });
+};
+//
+
+// Xử lý logic code đăng nhập
+const formLogin = ref({
+  email: "",
+  password: "",
+});
+
+const authStore = useAuthStore();
+
+const login = async () => {
+  try {
+    await authStore.login(formLogin.value);
+    navigator("/blogs");
+  } catch (error) {
+    alertInfo.value = "Đăng nhập thất bại!";
+  }
 };
 </script>
 

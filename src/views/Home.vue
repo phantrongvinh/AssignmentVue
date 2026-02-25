@@ -5,7 +5,7 @@
     <div class="row border-bottom pb-5">
       <!-- Phần nội dung bên trái 3 cột dùng để chưa các bài gợi ý -->
       <div class="col-lg-3">
-        <BlogItem :blogItems="newestBlogs"></BlogItem>
+        <BlogItem :blogItems="twoNearLastestBlogs"></BlogItem>
       </div>
       <!--  -->
 
@@ -14,26 +14,26 @@
         class="col-lg-6 d-flex justify-content-center border-end border-start px-5"
       >
         <RouterLink
-          :to="`/blogs/detail/${newBlog.blogID}`"
+          :to="`/blogs/detail/${latestBlogs.blogID}`"
           data-page="blogDetail"
           class="text-decoration-none"
         >
           <div class="card w-100 border-0">
             <img
-              :src="`/public/images/${newBlog.img}`"
+              :src="`/public/images/${latestBlogs.img}`"
               alt=""
               class="card-img-top"
             />
             <div class="card-body my-5 text-center d-flex gap-5 flex-column">
               <h5 class="card-title fw-semibold fs-4">
-                {{ newBlog.title }}
+                {{ latestBlogs.title }}
               </h5>
               <p class="card-text fs-5">
-                {{ newBlog.description }}
+                {{ latestBlogs.description }}
               </p>
               <p class="card-text text-muted">
-                {{ formateDate(newBlog.createdAt) }} |
-                {{ getAuthor(newBlog.authorID)?.nickname ?? "Hidden Author" }}
+                {{ formateDate(latestBlogs.createdAt) }} |
+                {{ latestBlogs.author }}
               </p>
             </div>
           </div>
@@ -41,7 +41,7 @@
       </div>
       <!--  -->
       <div class="col-lg-3">
-        <BlogList :bloglist="mostLikesBlogs"></BlogList>
+        <!-- <BlogList :bloglist="mostLikesBlogs"></BlogList> -->
       </div>
     </div>
     <!--  -->
@@ -116,10 +116,10 @@
               tabindex="0"
             >
               <div class="row">
-                <BlogItem
+                <!-- <BlogItem
                   :blogItems="blogsByTime"
                   wrapperClass="col-lg-4 mb-5"
-                ></BlogItem>
+                ></BlogItem> -->
               </div>
             </div>
             <div
@@ -130,10 +130,10 @@
               tabindex="0"
             >
               <div class="row">
-                <BlogItem
+                <!-- <BlogItem
                   :blogItems="blogsByLike"
                   wrapperClass="col-lg-4 mb-5"
-                ></BlogItem>
+                ></BlogItem> -->
               </div>
             </div>
             <div
@@ -144,10 +144,10 @@
               tabindex="0"
             >
               <div class="row">
-                <BlogItem
+                <!-- <BlogItem
                   :blogItems="blogsByLike"
                   wrapperClass="col-lg-4 mb-5"
-                ></BlogItem>
+                ></BlogItem> -->
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@
               <a href="#" class="text-secondary text-hover"> Xem tất cả </a>
             </div>
           </div>
-          <AuthorSide :users="users"></AuthorSide>
+          <AuthorSide :authors="authors"></AuthorSide>
         </div>
         <!--  -->
       </div>
@@ -175,53 +175,45 @@
 import AuthorSide from "@/components/AuthorSide.vue";
 import BlogItem from "@/components/BlogItem.vue";
 import BlogList from "@/components/BlogList.vue";
-import { blogs, users } from "@/db";
+import BlogAPI from "@/service/BlogApi";
 import UserAPI from "@/service/UserAPI";
 import { getAuthor } from "@/ultils/config";
 import { formateDate } from "@/ultils/date";
 import { computed, onMounted, ref } from "vue";
-const newBlog = computed(() => {
-  return blogs.value
-    .slice()
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
-});
 
-const newestBlogs = computed(() => {
-  return blogs.value
-    .slice()
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    .slice(1, 3);
-});
+const latestBlogs = ref([]);
+const twoNearLastestBlogs = ref([]);
+const authors = ref([]);
 
-const mostLikesBlogs = computed(() => {
-  return blogs.value
-    .slice()
-    .sort((a, b) => b.likes.length - a.likes.length)
-    .slice(0, 6);
-});
-
-const blogsByTime = computed(() => {
-  return blogs.value
-    .slice()
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    .slice(0, 6);
-});
-
-const blogsByLike = computed(() => {
-  return blogs.value
-    .slice()
-    .sort((a, b) => b.likes.length - a.likes.length)
-    .slice(0, 6);
-});
-
-const usersFormDB = ref([]);
-
-onMounted(async() =>{
-  const rs = await UserAPI.getAllUsers();
-  usersFormDB.value = rs.data;
+onMounted(async () => {
+  try {
+    const rs = await BlogAPI.getLatestBlog();
+    latestBlogs.value = rs.data;
+    
+  } catch (error) {
+     console.error("Error fetching latest blog: ", error)
+  }
 })
 
-console.log(usersFormDB);
+onMounted(async () => {
+  try {
+    const rs = await BlogAPI.get2NearLatestBLogs();
+    twoNearLastestBlogs.value = rs.data;
+    
+  } catch (error) {
+     console.error("Error fetching 2 near latest blogs: ", error)
+    
+  }
+})
+
+onMounted(async () => {
+  try {
+    const rs = await UserAPI.getTheMostAuthors();
+    authors.value = rs.data;
+  } catch (error) {
+     console.error("Error fetching authors: ", error)
+  }
+})
 </script>
 
 <style scoped></style>

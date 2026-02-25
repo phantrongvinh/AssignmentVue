@@ -26,7 +26,7 @@
           </p>
           <p class="card-text text-muted">
             {{ formateDate(blogItem.createdAt) }} |
-            {{ getAuthor(blogItem.authorID)?.nickname || "Hidden Author" }}
+            {{ blogItem.author }}
           </p>
         </div>
       </div>
@@ -57,7 +57,7 @@
           </p>
           <p class="card-text text-muted">
             {{ formateDate(blogItem.createdAt) }} |
-            {{ getAuthor(blogItem.authorID)?.nickname || "Hidden Author" }}
+            {{  blogItem.author }}
           </p>
         </div>
       </div>

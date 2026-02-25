@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/store/authStore";
 import Home from "@/views/Home.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -43,8 +44,18 @@ const router = createRouter({
       path: "/auth",
       name: "auth",
       component: () => import("../views/Auth.vue"),
-    }
+    },
   ],
+});
+
+// Route guard kiểm tra xác thực
+router.beforeEach((to, form, next) => {
+  const authStore = useAuthStore();
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next("/auth");
+  } else {
+    next();
+  }
 });
 
 export default router;
