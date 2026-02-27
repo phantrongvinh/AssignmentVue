@@ -34,6 +34,7 @@ const router = createRouter({
       path: "/about",
       name: "About",
       component: () => import("../views/About.vue"),
+      meta: { requiresAuth: true }
     },
     {
       path: "/blogs/detail/:id",

@@ -26,6 +26,10 @@ const getRandomBlogs = () => {
   return axiosClient.get(`${url}/random`);
 };
 
+const getBlogBySearch = (keyword) => {
+  return axiosClient.get(`${url}/search?titleKeyword=${keyword}`);
+};
+
 const postBlog = (formData) => {
   return axiosClient.post(`${url}/post`, formData, {
     headers: {
@@ -41,6 +45,7 @@ const BlogAPI = {
   getTheMostCommentBlogs,
   getRandomBlogs,
   getBlogByID,
+  getBlogBySearch,
   postBlog,
 };
 

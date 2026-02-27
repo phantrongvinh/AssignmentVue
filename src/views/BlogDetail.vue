@@ -66,7 +66,9 @@
             <FontAwesomeIcon
               :icon="!isLike ? ['far', 'heart'] : ['fas', 'heart']"
             />
-            <span class="badge bg-transparent text-color-dark"></span>
+            <span class="badge bg-transparent text-color-dark">{{
+              countLike
+            }}</span>
           </button>
         </div>
 
@@ -76,7 +78,16 @@
           <div class="fw-semibold fs-4">Bàn tán</div>
           <div class="row mt-4 mb-5">
             <div class="col-1">
-              <img :src="`/public/images/${userImg}`" class="w-50 img-fluid" />
+              <img
+                src="/public/images/default-avatar.jpg"
+                class="w-50 img-fluid"
+                v-if="userImg == 'default-avatar.jpg'"
+              />
+              <img
+                :src="`http://localhost:8080/uploads/${userImg}`"
+                class="w-50 img-fluid"
+                v-else
+              />
             </div>
             <div class="col-11">
               <form action="">
@@ -117,7 +128,6 @@ import { formateDate } from "@/ultils/date";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-
 // Lấy param
 const route = useRoute();
 const blogDetailID = Number(route.params.id);
@@ -126,7 +136,7 @@ const blogDetailID = Number(route.params.id);
 const blogDetail = ref([]);
 const fetchBlog = async () => {
   try {
-    const rs = await BlogAPI.getBlogByID(blogDetailID);
+    const rs = await BlogAPI.getBlogByID(route.params.id);
     if (rs != null) {
       blogDetail.value = rs.data;
     }
@@ -139,6 +149,13 @@ onMounted(() => {
   fetchBlog();
 });
 
+watch(
+  () => route.params.id,
+  async () => {
+    await fetchBlog();
+  },
+);
+
 // Lấy từ global state
 const authStore = useAuthStore();
 const userImg = authStore.userImg;
@@ -149,15 +166,21 @@ const comment = ref({
   blogID: blogDetailID,
 });
 const postComment = async () => {
-  try {
-    await CommentAPI.postComment(comment.value);
-    comment.value = "";
-    await fetchBlog();
-  } catch (error) {}
+  if (authStore.isAuthenticated) {
+    try {
+      await CommentAPI.postComment(comment.value);
+      comment.value = "";
+      await fetchBlog();
+    } catch (error) {}
+  } else {
+    alert("Ban chua dang nhap");
+  }
 };
 // Handle like blog
 
 const isLike = ref(false);
+const countLike = ref(0);
+
 const handleIsLike = async () => {
   try {
     const rs = await LikeAPI.isLiked(blogDetailID);
@@ -165,16 +188,34 @@ const handleIsLike = async () => {
   } catch (error) {}
 };
 
-onMounted(() => handleIsLike());
+const handleCountLike = async () => {
+  try {
+    const rs = await LikeAPI.countLike(blogDetailID);
+    countLike.value = rs.data;
+  } catch (error) {}
+};
+
+onMounted(() => {
+  if (authStore.isAuthenticated) {
+    handleIsLike();
+  }
+  handleCountLike();
+});
 
 const handleLikeBlog = async () => {
   try {
-    if (isLike.value) {
-      await LikeAPI.unLiked(blogDetailID);
-      await handleIsLike();
+    if (authStore.isAuthenticated) {
+      if (isLike.value) {
+        await LikeAPI.unLiked(blogDetailID);
+        await handleIsLike();
+        await handleCountLike();
+      } else {
+        await LikeAPI.toggleLike(blogDetailID);
+        await handleIsLike();
+        await handleCountLike();
+      }
     } else {
-      await LikeAPI.toggleLike(blogDetailID);
-      await handleIsLike();
+      alert("Ban chua dang nhap");
     }
   } catch (error) {}
 };

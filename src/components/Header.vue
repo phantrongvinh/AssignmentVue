@@ -4,12 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { useAuthStore } from "@/store/authStore";
 import { ref, watch } from "vue";
 import router from "@/router";
+import Search from "./Search.vue";
 
 const authStore = useAuthStore();
 const logout = () => {
   authStore.logout();
   router.push("/");
 };
+
+const showModal = ref(false);
 </script>
 
 <template>
@@ -38,7 +41,11 @@ const logout = () => {
       </div>
       <!-- Phần tìm kiếm chủ đề blog và đăng nhập/đăng ký -->
       <div class="col-6 col-lg-4 d-flex align-items-center justify-content-end">
-        <button class="btn bg-transparent btn-hover">
+        <button
+          class="btn bg-transparent btn-hover"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
           <FontAwesomeIcon icon="magnifying-glass" />
         </button>
         <RouterLink
@@ -58,6 +65,30 @@ const logout = () => {
         >
           Sign out
         </a>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <Search></Search>
+          </div>
+        </div>
       </div>
     </div>
   </header>

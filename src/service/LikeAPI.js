@@ -12,10 +12,15 @@ const isLiked = (blogID) => {
 const unLiked = (blogID) => {
   return axiosClient.delete(`${url}/${blogID}`);
 };
+
+const countLike = (blogID) => {
+  return axiosClient.get(`${url}/count/${blogID}`)
+}
 const LikeAPI = {
   toggleLike,
   isLiked,
   unLiked,
+  countLike
 };
 
 export default LikeAPI;

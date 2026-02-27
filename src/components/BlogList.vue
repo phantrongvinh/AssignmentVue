@@ -1,11 +1,5 @@
 <template>
   <!-- Phần nội dung bên phải 3 cột dùng để chứa các bài viết nổi bật và có thể xem thêm -->
-  <div class="clearfix mb-4 border-bottom pb-2">
-    <div class="float-start fw-semibold fs-5">Nổi bật</div>
-    <div class="float-end fs-5">
-      <a href="#" class="text-secondary text-hover"> Xem tất cả </a>
-    </div>
-  </div>
 
   <div class="d-flex flex-column">
     <RouterLink
@@ -51,6 +45,7 @@ import { getAuthor, truncate } from "@/ultils/config";
 import { formateDate } from "@/ultils/date";
 
 defineProps(["bloglist"]);
+defineEmits(["gotoDetail"]);
 </script>
 
 <style scoped></style>
