@@ -21,15 +21,22 @@
           </h5>
           <p class="card-text text-muted fs-6">
             {{ formateDate(blog.createdAt) }} |
-            {{ getAuthor(blog.authorID)?.nickname ?? "Hidden Author" }}
+            {{ blog.author }}
           </p>
         </div>
         <div class="col-lg-4 h-100">
           <div class="ratio ratio-4x3">
             <img
-              :src="`/public/images/${blog.img}`"
+              src="/public/images/example.jpg"
               alt=""
               class="img-fluid w-100"
+              v-if="blog.img == 'example.jpg'"
+            />
+            <img
+              :src="`http://localhost:8080/uploads/${blog.img}`"
+              alt=""
+              class="img-fluid w-100"
+              v-else
             />
           </div>
         </div>

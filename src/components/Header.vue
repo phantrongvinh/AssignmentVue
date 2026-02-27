@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+import { useAuthStore } from "@/store/authStore";
+import { ref, watch } from "vue";
+import router from "@/router";
+
+const authStore = useAuthStore();
+const logout = () => {
+  authStore.logout();
+  router.push("/");
+};
 </script>
 
 <template>
@@ -12,7 +22,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
       <div class="col-6 col-lg-4 d-flex align-items-center pe-1">
         <RouterLink to="/" class="img-wrapper">
           <img
-            src="../../public/images/logo.jpg"
+            src="/public/images/logo.jpg"
             alt=""
             class=""
             style="width: 100px"
@@ -35,9 +45,19 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
           class="btn bg-transparent btn-hover border-0"
           to="/auth"
           data-page="auth"
+          v-if="!authStore.isAuthenticated"
         >
           Sign In
         </RouterLink>
+
+        <a
+          class="btn bg-transparent btn-hover border-0"
+          data-page="auth"
+          @click.prevent="logout()"
+          v-else
+        >
+          Sign out
+        </a>
       </div>
     </div>
   </header>

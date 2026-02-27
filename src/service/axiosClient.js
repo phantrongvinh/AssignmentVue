@@ -12,11 +12,9 @@ const axiosClient = axios.create({
 // Thêm interceptor để tự động gắn token vào header Authorization
 axiosClient.interceptors.request.use(
   (config) => {
-    const username = localStorage.getItem("username");
-    const password = localStorage.getItem("password");
+    const token = localStorage.getItem("token");
 
-    if (username && password) {
-      const token = btoa(`${username}:${password}`);
+    if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;

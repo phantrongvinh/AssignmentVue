@@ -20,9 +20,16 @@
         >
           <div class="card w-100 border-0">
             <img
-              :src="`/public/images/${latestBlogs.img}`"
+              src="/public/images/example.jpg"
               alt=""
               class="card-img-top"
+              v-if="latestBlogs.img == 'example.jpg'"
+            />
+            <img
+              :src="`http://localhost:8080/uploads/${latestBlogs.img}`"
+              alt=""
+              class="card-img-top"
+              v-else
             />
             <div class="card-body my-5 text-center d-flex gap-5 flex-column">
               <h5 class="card-title fw-semibold fs-4">
@@ -41,7 +48,7 @@
       </div>
       <!--  -->
       <div class="col-lg-3">
-        <!-- <BlogList :bloglist="mostLikesBlogs"></BlogList> -->
+        <BlogList :bloglist="randomBlogs"></BlogList>
       </div>
     </div>
     <!--  -->
@@ -60,20 +67,6 @@
               <li class="nav-item">
                 <button
                   class="nav-link active text-color-dark nav-link-bg"
-                  data-bs-toggle="tab"
-                  id="pills-new-tab"
-                  data-bs-target="#new-tab-pane"
-                  type="button"
-                  role="tab"
-                  aria-controls="new-tab-pane"
-                  aria-selected="true"
-                >
-                  Mới nhất
-                </button>
-              </li>
-              <li class="nav-item">
-                <button
-                  class="nav-link text-color-dark nav-link-bg"
                   data-bs-toggle="tab"
                   id="pills-popular-tab"
                   data-bs-target="#popular-tab-pane"
@@ -110,30 +103,16 @@
           <div class="tab-content mt-5" id="pills-tabContent">
             <div
               class="tab-pane fade show active"
-              id="new-tab-pane"
-              role="tabpanel"
-              aria-labelledby="pills-new-tab"
-              tabindex="0"
-            >
-              <div class="row">
-                <!-- <BlogItem
-                  :blogItems="blogsByTime"
-                  wrapperClass="col-lg-4 mb-5"
-                ></BlogItem> -->
-              </div>
-            </div>
-            <div
-              class="tab-pane fade"
               id="popular-tab-pane"
               role="tabpanel"
               aria-labelledby="pills-popular-tab"
               tabindex="0"
             >
               <div class="row">
-                <!-- <BlogItem
-                  :blogItems="blogsByLike"
+                <BlogItem
+                  :blogItems="theMostCommentBlogs"
                   wrapperClass="col-lg-4 mb-5"
-                ></BlogItem> -->
+                ></BlogItem>
               </div>
             </div>
             <div
@@ -175,7 +154,7 @@
 import AuthorSide from "@/components/AuthorSide.vue";
 import BlogItem from "@/components/BlogItem.vue";
 import BlogList from "@/components/BlogList.vue";
-import BlogAPI from "@/service/BlogApi";
+import BlogAPI from "@/service/BlogAPI";
 import UserAPI from "@/service/UserAPI";
 import { getAuthor } from "@/ultils/config";
 import { formateDate } from "@/ultils/date";
@@ -184,36 +163,58 @@ import { computed, onMounted, ref } from "vue";
 const latestBlogs = ref([]);
 const twoNearLastestBlogs = ref([]);
 const authors = ref([]);
+const theMostCommentBlogs = ref([]);
+const randomBlogs = ref([]);
 
+// Newest Blog
 onMounted(async () => {
   try {
     const rs = await BlogAPI.getLatestBlog();
     latestBlogs.value = rs.data;
-    
   } catch (error) {
-     console.error("Error fetching latest blog: ", error)
+    console.error("Error fetching latest blog: ", error);
   }
-})
+});
 
+// 2 near latest blogs
 onMounted(async () => {
   try {
     const rs = await BlogAPI.get2NearLatestBLogs();
     twoNearLastestBlogs.value = rs.data;
-    
   } catch (error) {
-     console.error("Error fetching 2 near latest blogs: ", error)
-    
+    console.error("Error fetching 2 near latest blogs: ", error);
   }
-})
+});
 
+// The most author
 onMounted(async () => {
   try {
     const rs = await UserAPI.getTheMostAuthors();
     authors.value = rs.data;
   } catch (error) {
-     console.error("Error fetching authors: ", error)
+    console.error("Error fetching authors: ", error);
   }
-})
+});
+
+// BLOG BY COMMENT
+onMounted(async () => {
+  try {
+    const rs = await BlogAPI.getTheMostCommentBlogs();
+    theMostCommentBlogs.value = rs.data;
+  } catch (error) {
+    console.error("Error fetching blogs: ", error);
+  }
+});
+
+// Random blog
+onMounted(async () => {
+  try {
+    const rs = await BlogAPI.getRandomBlogs();
+    randomBlogs.value = rs.data;
+  } catch (error) {
+    console.error("Error fetching blogs: ", error);
+  }
+});
 </script>
 
 <style scoped></style>

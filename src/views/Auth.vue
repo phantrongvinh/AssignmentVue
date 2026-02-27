@@ -238,16 +238,18 @@
           </div>
         </ul>
         <!--  -->
+        <div class="text-danger">{{alertInfo}}</div>
       </div>
     </div>
     <!--  -->
   </div>
 </template>
 <script setup>
+import router from "@/router";
 import AuthAPI from "@/service/AuthAPI";
 import UserAPI from "@/service/UserAPI";
 import { useAuthStore } from "@/store/authStore";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 
 // Kiểm soát hành vi và giao diện của form đăng nhập đăng ký
 const isLoginForm = ref(true);
@@ -263,6 +265,8 @@ const switchToSignUp = () => {
 //
 
 //Xử lý logic code đăng ký
+const authStore = useAuthStore();
+
 const formSignUp = ref({
   email: "",
   password: "",
@@ -281,7 +285,7 @@ const register = async () => {
         "Email đã tồn tại hoặc chưa nhập, vui lòng chọn email (khác)";
       resetSignUpForm();
     } else {
-      await AuthAPI.register(formSignUp.value);
+      await authStore.register(formSignUp.value);
       alertInfo.value = "Đăng ký thành công!";
       switchToLogin();
     }
@@ -301,17 +305,16 @@ const resetSignUpForm = () => {
 //
 
 // Xử lý logic code đăng nhập
-const formLogin = ref({
+const formLogin = reactive({
   email: "",
   password: "",
 });
 
-const authStore = useAuthStore();
 
 const login = async () => {
   try {
-    await authStore.login(formLogin.value);
-    navigator("/blogs");
+      await authStore.login(formLogin);
+      router.push("/blogs")
   } catch (error) {
     alertInfo.value = "Đăng nhập thất bại!";
   }
