@@ -18,12 +18,69 @@
         </div>
         <div class="d-flex flex-column my-2">
           <div class="fw-semibold fs-5">Birth:</div>
-          <div class="fs-6 text-muted">{{ formateDate(profile.birthDay) }}</div>
+          <div class="fs-6 text-muted">
+            {{ formateDate(profile.birthDay) }}
+          </div>
         </div>
         <div class="d-flex justify-content-end my-2">
-          <button class="btn btn-primary btn-auth" type="button">
-            Cập nhật
+          <button
+            class="btn btn-primary btn-auth"
+            type="button"
+            @click="handleFormPassShow"
+          >
+            Đổi mật khẩu
           </button>
+        </div>
+
+        <div class="" v-if="isFormPassShow">
+          <div
+            class="d-flex flex-column justify-content-center align-items-center border-bottom pb-3"
+          >
+            <div class="fw-bold fs-4 my-2">Đổi mật khẩu</div>
+          </div>
+          <form action="">
+            <div class="mb-3">
+              <label for="oldPassword" class="form-lable">Old Password</label>
+              <input
+                type="password"
+                name=""
+                id=""
+                class="form-control"
+                v-model="formChange.oldPassword"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="oldPassword" class="form-lable">New Password</label>
+              <input
+                type="password"
+                name=""
+                id=""
+                class="form-control"
+                v-model="formChange.newPassword"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="oldPassword" class="form-lable"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                name=""
+                id=""
+                class="form-control"
+                v-model="formChange.confirmPassword"
+              />
+            </div>
+            <div class="mb-3 d-flex justify-content-end">
+              <button
+                class="btn btn-primary btn-auth"
+                type="submit"
+                @click.prevent="handleSubmitChangePass"
+              >
+                Xác nhận
+              </button>
+            </div>
+          </form>
         </div>
       </div>
       <div
@@ -170,6 +227,27 @@ const postBlog = async () => {
     console.log(postAlert);
   }
   fetchMyBlog();
+};
+
+// Đổi mật khẩu
+const isFormPassShow = ref(false);
+
+const formChange = ref({
+  oldPassword: "",
+  newPassword: "",
+  confirmPassword: "",
+});
+
+const handleFormPassShow = () => {
+  isFormPassShow.value = !isFormPassShow.value;
+};
+
+const handleSubmitChangePass = () => {
+  try {
+    const rs = UserAPI.changePass(formChange.value);
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
 

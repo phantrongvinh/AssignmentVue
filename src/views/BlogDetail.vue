@@ -130,7 +130,7 @@ import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 // Lấy param
 const route = useRoute();
-const blogDetailID = Number(route.params.id);
+// const route.params.id = Number(route.params.id);
 
 // Fetch Blog by ID
 const blogDetail = ref([]);
@@ -153,6 +153,9 @@ watch(
   () => route.params.id,
   async () => {
     await fetchBlog();
+    await handleLikeBlog();
+    await handleIsLike();
+    await handleCountLike()
   },
 );
 
@@ -163,7 +166,7 @@ const userImg = authStore.userImg;
 // Handle post comment event
 const comment = ref({
   content: "",
-  blogID: blogDetailID,
+  blogID: route.params.id,
 });
 const postComment = async () => {
   if (authStore.isAuthenticated) {
@@ -183,14 +186,14 @@ const countLike = ref(0);
 
 const handleIsLike = async () => {
   try {
-    const rs = await LikeAPI.isLiked(blogDetailID);
+    const rs = await LikeAPI.isLiked(route.params.id);
     isLike.value = rs.data;
   } catch (error) {}
 };
 
 const handleCountLike = async () => {
   try {
-    const rs = await LikeAPI.countLike(blogDetailID);
+    const rs = await LikeAPI.countLike(route.params.id);
     countLike.value = rs.data;
   } catch (error) {}
 };
@@ -206,11 +209,11 @@ const handleLikeBlog = async () => {
   try {
     if (authStore.isAuthenticated) {
       if (isLike.value) {
-        await LikeAPI.unLiked(blogDetailID);
+        await LikeAPI.unLiked(route.params.id);
         await handleIsLike();
         await handleCountLike();
       } else {
-        await LikeAPI.toggleLike(blogDetailID);
+        await LikeAPI.toggleLike(route.params.id);
         await handleIsLike();
         await handleCountLike();
       }
